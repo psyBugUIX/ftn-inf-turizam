@@ -1,24 +1,18 @@
 'use strict'
-const ture = [
-    {
-        ime: "Planinska staza",
-        duzina: 12,
-        opis: "Šetnja kroz planinske staze sa prelepim pogledima.",
-        tagovi: ["priroda", "planinska", "avantura"]
-    },
-    {
-        ime: "Istorijska setnja gradom",
-        duzina: 7,
-        opis: "Obilazak najvažnijih istorijskih lokacija u gradu.",
-        tagovi: ["istorijska", "gradska"]
-    },
-    {
-        ime: "Rečna tura",
-        duzina: 18,
-        opis: "Vožnja čamcem i šetnja pored reke.",
-        tagovi: ["priroda", "vodena"]
+let ture = [];
+
+function ucitajTure() {
+    const stored = localStorage.getItem("ture");
+    if (stored) {
+        ture = JSON.parse(stored);
+    } else {
+        ture = [];
     }
-];
+}
+function sacuvajTure() {
+    localStorage.setItem("ture", JSON.stringify(ture));
+}
+
 function PrikaziTure() {
     const tourList = document.getElementById("turaList");
     tourList.innerHTML = "";
@@ -47,4 +41,36 @@ function PrikaziTure() {
         tourList.appendChild(li);
     }
 }
+function dodajTuru(event) {
+    event.preventDefault();
+
+    const form = document.querySelector("#dodajTuruForm");
+    const formData = new FormData(form);
+
+    const ime = formData.get("ime").trim();
+    const duzina = parseFloat(formData.get("duzina"));
+    const opis = formData.get("opis").trim();
+    const tagoviInput = formData.get("tagovi");
+
+    let tagovi = tagoviInput.split(",");
+    const cistiTagovi = [];
+    for (let j = 0; j < tagovi.length; j++) {
+        cistiTagovi.push(tagovi[j].trim());
+    }
+
+    const novaTura = {
+        ime: ime,
+        duzina: duzina,
+        opis: opis,
+        tagovi: cistiTagovi
+    };
+
+    ture.push(novaTura);
+    sacuvajTure();
+    PrikaziTure();
+    form.reset();
+}
+ucitajTure();
 PrikaziTure();
+
+document.querySelector("#dodajTuruForm").addEventListener("submit", dodajTuru);

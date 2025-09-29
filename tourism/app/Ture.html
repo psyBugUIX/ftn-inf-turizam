@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TourApp</title>
     <link rel="stylesheet" href="../dist/Ture.css">
 </head>
+
 <body>
     <nav class="navbar">
         <h1 class="title">TourApp</h1>
@@ -15,13 +17,36 @@
             <li><a href="#">Restorani</a></li>
         </ul>
     </nav>
-      <main>
+    <main>
         <section>
             <h2>Lista tura</h2>
             <ul id="turaList"></ul>
         </section>
     </main>
-
+    <main>
+        <section>
+            <h2>Dodaj novu turu</h2>
+            <form id="dodajTuruForm">
+                <div>
+                    <label for="ime">Ime:</label>
+                    <input type="text" id="ime" name="ime">
+                </div>
+                <div>
+                    <label for="duzina">Dužina (km):</label>
+                    <input type="number" id="duzina" name="duzina">
+                </div>
+                <div>
+                    <label for="opis">Opis:</label>
+                    <textarea id="opis" name="opis"></textarea>
+                </div>
+                <div>
+                    <label for="tagovi">Tagovi (odvojeni zarezom):</label>
+                    <input type="text" id="tagovi" name="tagovi">
+                </div>
+                <button type="submit">Dodaj</button>
+            </form>
+        </section>
+    </main>
     <script src="Ture.js"></script>
 </body>
 </html>
